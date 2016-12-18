@@ -4,9 +4,15 @@ import com.khai.notifier.Models.Message.Message;
 import com.khai.notifier.Models.User.User;
 
 /**
- * Created by Yermakov Vladislav on 12/17/2016.
+ * Abstract class of sender.
+ * Children of this class can send messages of different types.
  */
 public abstract class Sender {
 
-        public abstract void send(Message message, User user);
+    /**
+     * Send message to user
+     * @param message
+     * @param user
+     */
+    public abstract void send(Message message, User user);
 }

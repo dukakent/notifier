@@ -11,13 +11,20 @@ import org.apache.http.entity.ByteArrayEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 
 /**
- * Created by Yermakov Vladislav on 12/17/2016.
+ * SMSSender uses HTTP POST method to use sms-fly.com API
+ * Inits with user and pass of sms-fly.com account
  */
 public class SMSSender extends Sender {
 
-    private static String LOGIN = "123";
-    private static String PASSWORD = "123";
+    private String     username;
+    private String     password;
     private static String HOST_NAME = "sms-fly.com";
+
+    public SMSSender(String user, String pass) {
+        this.username = user;
+        this.password = pass;
+    }
+
     @Override
     public void send(Message message, User user) {
 
@@ -28,10 +35,15 @@ public class SMSSender extends Sender {
         }
     }
 
-    //TODO: move to network manager
+    /**
+     * Sends HTTP POST with XML
+     * @param body Message body
+     * @param phone User phone number
+     * @throws Exception
+     */
     private void sendPost(String body, String phone) throws Exception {
 
-        byte[] encodedAuthorizationHeaderValue = Base64.encodeBase64((LOGIN+":"+PASSWORD).getBytes());
+        byte[] encodedAuthorizationHeaderValue = Base64.encodeBase64((username+":"+password).getBytes());
         String authorizationHeaderValue = new String(encodedAuthorizationHeaderValue);
         String url = "http://sms-fly.com/api/api.noai.php";
         String xml =

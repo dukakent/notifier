@@ -8,7 +8,10 @@ import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
 /**
- * Created by Yermakov Vladislav on 12/17/2016.
+ * Email sender use smtp email protocol.
+ * Using ssl secured connection.
+ * Connected to port 465.
+ * EmailSender must have username and password of existing user on gmail.com
  */
 public class EmailSender extends Sender {
 

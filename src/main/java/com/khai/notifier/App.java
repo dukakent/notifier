@@ -36,7 +36,7 @@ public class App
         List<User> userList;
         Template template;
         Sender senderEmail = new EmailSender("notifier123456@gmail.com", "123456abcde!");
-        Sender senderSMS = new SMSSender();
+        Sender senderSMS = new SMSSender("notifier123456@gmail.com", "123456abcde!");
 
         options.addOption("u", "users", true, "Path to file with user list");
         options.addOption("t", "template", true, "Path to template file");
