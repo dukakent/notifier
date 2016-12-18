@@ -11,6 +11,7 @@ public abstract class Sender {
 
     /**
      * Send message to user
+     *
      * @param message
      * @param user
      */

@@ -37,13 +37,14 @@ public class SMSSender extends Sender {
 
     /**
      * Sends HTTP POST with XML
-     * @param body Message body
+     *
+     * @param body  Message body
      * @param phone User phone number
      * @throws Exception
      */
     private void sendPost(String body, String phone) throws Exception {
 
-        byte[] encodedAuthorizationHeaderValue = Base64.encodeBase64((username+":"+password).getBytes());
+        byte[] encodedAuthorizationHeaderValue = Base64.encodeBase64((username + ":" + password).getBytes());
         String authorizationHeaderValue = new String(encodedAuthorizationHeaderValue);
         String url = "http://sms-fly.com/api/api.noai.php";
         String xml =
