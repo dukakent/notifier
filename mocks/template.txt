@@ -1,0 +1,6 @@
+Hello, ${firstName} ${lastName}!
+
+You have requested your password for account ${login} <${email}>.
+Your password is: ${password}
+
+Good luck!
