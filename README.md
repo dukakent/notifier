@@ -1,4 +1,4 @@
-# notifier
+# Notifier
 The tool for sending messages
 
 ### For development
