@@ -8,14 +8,10 @@ The tool for sending messages
 * Syntax of template properties: `${userName}`
 
 ### Project information
-University: National Aerospace University "KhAI"
-
-Chair: Radiotechnical Systems of Aircraft
-
+University: National Aerospace University "KhAI"<br>
+Chair: Radiotechnical Systems of Aircraft<br>
 Group: 545
 
-
 ### Team
-Inokentii Duka
-
+Inokentii Duka<br>
 Vladyslav Yermakov
