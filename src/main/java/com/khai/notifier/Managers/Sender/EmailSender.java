@@ -1,6 +1,7 @@
 package com.khai.notifier.Managers.Sender;
 
 import com.khai.notifier.Models.User.User;
+
 import javax.mail.*;
 import javax.mail.Message;
 import javax.mail.internet.InternetAddress;
@@ -15,8 +16,8 @@ import java.util.Properties;
  */
 public class EmailSender extends Sender {
 
-    private String     username;
-    private String     password;
+    private String username;
+    private String password;
     private Properties props;
 
     public EmailSender(String username, String password) {

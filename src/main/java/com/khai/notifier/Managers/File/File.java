@@ -24,7 +24,7 @@ public class File {
             }
 
             br.close();
-        } catch(Exception e) {
+        } catch (Exception e) {
             System.out.println(e);
         }
 

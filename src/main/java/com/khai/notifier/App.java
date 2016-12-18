@@ -8,7 +8,7 @@ import com.khai.notifier.Managers.Sender.SMSSender;
 import com.khai.notifier.Managers.Sender.Sender;
 import com.khai.notifier.Models.Template.Template;
 import com.khai.notifier.Models.User.User;
-import com.khai.notifier.Models.User.UserFactory.UserFactory;
+import com.khai.notifier.Models.User.UserFactory;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
@@ -18,12 +18,8 @@ import java.io.FileReader;
 import java.io.Reader;
 import java.util.List;
 
-/**
- * Created by inokentii on 13.12.16.
- */
-public class App 
-{
-    public static void main( String[] args ) {
+public class App {
+    public static void main(String[] args) {
         Options options = new Options();
         CommandLineParser cmdParser = new DefaultParser();
         CommandLine cmd;
@@ -63,8 +59,8 @@ public class App
             User user;
             Message mess;
 
-            for (int i = 0; i < userList.size(); i++) {
-                user = userList.get(i);
+            for (User anUserList : userList) {
+                user = anUserList;
                 mess = new Message("Password restore", template.compile(user));
 
                 if (cmd.hasOption("e")) {
@@ -79,6 +75,6 @@ public class App
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-      
+
     }
 }

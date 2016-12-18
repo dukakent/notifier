@@ -8,8 +8,7 @@ public class Message {
     private String subject;
     private String text;
 
-    public Message(String subject, String text)
-    {
+    public Message(String subject, String text) {
         this.subject = subject;
         this.text = text;
     }

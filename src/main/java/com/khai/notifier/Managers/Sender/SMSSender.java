@@ -16,8 +16,8 @@ import org.apache.http.impl.client.HttpClientBuilder;
  */
 public class SMSSender extends Sender {
 
-    private String     username;
-    private String     password;
+    private String username;
+    private String password;
     private static String HOST_NAME = "sms-fly.com";
 
     public SMSSender(String user, String pass) {
@@ -51,7 +51,7 @@ public class SMSSender extends Sender {
                         "<operation>SENDSMS</operation>\n" +
                         "<message start_time=\"AUTO\" end_time=\"AUTO\" lifetime=\"4\" desc=\"description\">" +
                         "<recipient>" + phone + "</recipient>\n" +
-                        "<body>" + body +"</body>\n" +
+                        "<body>" + body + "</body>\n" +
                         "</message>\n" +
                         "</request>";
 

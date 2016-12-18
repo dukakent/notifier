@@ -15,7 +15,8 @@ public class Template {
     private String compiledTemplate = "";
     private ArrayList<String> properties;
 
-    public Template() {}
+    public Template() {
+    }
 
     public Template(String template) {
         this.sourceTemplate = template;
@@ -49,11 +50,11 @@ public class Template {
         String res = this.sourceTemplate;
         String value = "";
 
-        for (String prop: this.properties) {
+        for (String prop : this.properties) {
             try {
                 String getterName = this.getterName(prop);
                 method = cl.getMethod(getterName, null);
-                value = (String)method.invoke(object, null);
+                value = (String) method.invoke(object, null);
                 res = res.replace("${" + prop + "}", value);
 
             } catch (Exception e) {

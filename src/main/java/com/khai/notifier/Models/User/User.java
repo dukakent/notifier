@@ -1,8 +1,5 @@
 package com.khai.notifier.Models.User;
 
-/**
- * Created by inokentii on 13.12.16.
- */
 public class User {
     private String firstName;
     private String lastName;
@@ -11,16 +8,7 @@ public class User {
     private String login;
     private String password;
 
-    public User(String firstName, String lastName, String phone, String email, String login, String password) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.phone = phone;
-        this.email = email;
-        this.login = login;
-        this.password = password;
-    }
-
-    public User(String[] attrs) {
+    User(String[] attrs) {
         this.firstName = attrs[0];
         this.lastName = attrs[1];
         this.phone = attrs[2];
