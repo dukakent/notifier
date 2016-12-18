@@ -9,9 +9,13 @@ The tool for sending messages
 
 ### Project information
 University: National Aerospace University "KhAI"
+
 Chair: Radiotechnical Systems of Aircraft
+
 Group: 545
+
 
 ### Team
 Inokentii Duka
+
 Vladyslav Yermakov
