@@ -8,39 +8,51 @@ import java.io.Reader;
 import java.util.List;
 
 /**
- * Created by inokentii on 13.12.16.
+ * Parser responsible for getting data from CSV file
  */
 public class ParserCSV extends Parser {
 
     private Reader file;
-    private String[] headers;
     private List<CSVRecord> records;
     private CSVFormat format;
-    private CSVParser parser;
 
-    public ParserCSV(Reader file, String[] headers) {
+    /**
+     * @param file CSV file where data saved
+     * @param headers columns names
+     */
+    private ParserCSV(Reader file, String[] headers) {
         this.file = file;
-        this.headers = headers;
+        String[] headers1 = headers;
         this.format = CSVFormat.DEFAULT;
 
-        if (this.headers != null) {
-            this.format.withHeader(this.headers);
+        if (headers1 != null) {
+            this.format.withHeader(headers1);
         }
     }
 
+    /**
+     * @param file Stream of file where data saved
+     */
     public ParserCSV(Reader file) {
         this(file, null);
     }
 
+    /**
+     * Parses rows (records)
+     */
     private void getRecords() {
         try {
-            this.parser = new CSVParser(this.file, this.format);
+            CSVParser parser = new CSVParser(this.file, this.format);
             this.records = parser.getRecords();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
+    /**
+     * Converts rows to arrays of strings
+     * @return 2D string array of data
+     */
     public String[][] parse() {
         this.getRecords();
 

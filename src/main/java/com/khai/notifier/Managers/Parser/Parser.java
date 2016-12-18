@@ -1,7 +1,7 @@
 package com.khai.notifier.Managers.Parser;
 
 /**
- * Created by inokentii on 17.12.16.
+ * Abstract parser entity responsible for getting values from files with different format (.csv, .xlsx, .json)
  */
 public abstract class Parser {
     public abstract String[][] parse();

@@ -7,27 +7,24 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 /**
- * Created by inokentii on 17.12.16.
+ * Template responsible for pasting data into specific template
  */
 public class Template {
 
     private String sourceTemplate = "";
-    private String compiledTemplate = "";
     private ArrayList<String> properties;
 
-    public Template() {
-    }
-
-    public Template(String template) {
-        this.sourceTemplate = template;
-        this.getProperties();
-    }
-
+    /**
+     * @param file File Reader Stream where source template is located
+     */
     public Template(Reader file) {
         this.sourceTemplate = File.read(file);
         this.getProperties();
     }
 
+    /**
+     * gets property names from the source template
+     */
     private void getProperties() {
         String[] parts = this.sourceTemplate.split("\\$\\{");
 
@@ -39,16 +36,26 @@ public class Template {
         }
     }
 
+    /**
+     * Converts property to getter name (capitalizes property and prepend "get")
+     * @param prop property from the source template
+     * @return getter name which calling returns property value
+     */
     private String getterName(String prop) {
         return "get" + prop.substring(0, 1).toUpperCase() + prop.substring(1);
     }
 
 
+    /**
+     * Creates string of compiled template with pasted values instead of properties
+     * @param object Object where values are located
+     * @return string with compiled template
+     */
     public String compile(Object object) {
         Class<?> cl = object.getClass();
         Method method;
         String res = this.sourceTemplate;
-        String value = "";
+        String value;
 
         for (String prop : this.properties) {
             try {
@@ -62,8 +69,7 @@ public class Template {
             }
         }
 
-        this.compiledTemplate = res;
-        return this.compiledTemplate;
+        return res;
     }
 
 }
