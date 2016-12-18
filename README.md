@@ -7,6 +7,7 @@ You need to use flags for giving file paths and choose the way to send message
 * `-t` or `--template` - specifies to file with template
 * `-e` or `--email` - Send via email
 * `-s` or `--sms` - Send via SMS
+<br>
 Example for sending both email and SMS:<br>
 `notifier --users ./users.csv --template ./template.txt --email --sms`
 
