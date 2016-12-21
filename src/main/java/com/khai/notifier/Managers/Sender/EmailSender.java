@@ -34,7 +34,6 @@ public class EmailSender extends Sender {
 
     @Override
     public void send(com.khai.notifier.Models.Message.Message message, User user) {
-        //создаем сессию
         Session session = Session.getDefaultInstance(props, new Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(username, password);
@@ -43,15 +42,10 @@ public class EmailSender extends Sender {
 
         try {
             Message mimeMessage = new MimeMessage(session);
-            //от кого
             mimeMessage.setFrom(new InternetAddress(username));
-            //кому
             mimeMessage.setRecipients(Message.RecipientType.TO, InternetAddress.parse(user.getEmail()));
-            //тема сообщения
             mimeMessage.setSubject(message.getSubject());
-            //текст
             mimeMessage.setText(message.getText());
-            //отправляем сообщение
             Transport.send(mimeMessage);
             System.out.println("Sending email to: " + user.getEmail());
             System.out.println("Email subject: " + message.getSubject());

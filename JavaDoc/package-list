@@ -1,0 +1,7 @@
+com.khai.notifier
+com.khai.notifier.Managers.File
+com.khai.notifier.Managers.Parser
+com.khai.notifier.Managers.Sender
+com.khai.notifier.Models.Message
+com.khai.notifier.Models.Template
+com.khai.notifier.Models.User
