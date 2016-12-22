@@ -12,8 +12,8 @@ public abstract class Sender {
     /**
      * Send message to user
      *
-     * @param message
-     * @param user
+     * @param message message to send
+     * @param where some contacts of user which receives the message
      */
-    public abstract void send(Message message, User user);
+    public abstract void send(Message message, String where);
 }
