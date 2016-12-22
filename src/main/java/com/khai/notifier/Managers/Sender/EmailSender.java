@@ -1,5 +1,6 @@
 package com.khai.notifier.Managers.Sender;
 
+import com.khai.notifier.Managers.Output.Output;
 import com.khai.notifier.Models.User.User;
 
 import javax.mail.*;
@@ -47,13 +48,13 @@ public class EmailSender extends Sender {
             mimeMessage.setSubject(message.getSubject());
             mimeMessage.setText(message.getText());
             Transport.send(mimeMessage);
-            System.out.println("Sending email to: " + user.getEmail());
-            System.out.println("Email subject: " + message.getSubject());
-            System.out.println("Email body: " + message.getText());
+            Output.info("Sending email to: " + user.getEmail());
+            Output.info("Email subject: " + message.getSubject());
+            Output.info("Email body: " + message.getText());
 
 
         } catch (MessagingException e) {
-            System.out.println("Error sending email to user with email: " + user.getEmail());
+            Output.error("Error sending email to user with email: " + user.getEmail());
             throw new RuntimeException(e);
         }
     }

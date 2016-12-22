@@ -1,5 +1,6 @@
 package com.khai.notifier.Managers.Sender;
 
+import com.khai.notifier.Managers.Output.Output;
 import com.khai.notifier.Models.Message.Message;
 import com.khai.notifier.Models.User.User;
 import org.apache.commons.codec.binary.Base64;
@@ -31,7 +32,7 @@ public class SMSSender extends Sender {
         try {
             sendPost(message.getText(), user.getPhone());
         } catch (Exception e) {
-            System.out.println("Error sending sms to user with phone: " + user.getPhone());
+            Output.error("Error sending sms to user with phone: " + user.getPhone());
         }
     }
 
@@ -69,8 +70,8 @@ public class SMSSender extends Sender {
         post.setEntity(entity);
 
         HttpResponse response = client.execute(post);
-        System.out.println("\nSending 'POST' request to URL : " + url);
-        System.out.println("Post parameters : " + post.getEntity());
-        System.out.println("Response Code : " + response.getStatusLine().getStatusCode());
+        Output.info("\nSending 'POST' request to URL : " + url);
+        Output.info("Post parameters : " + post.getEntity());
+        Output.info("Response Code : " + response.getStatusLine().getStatusCode());
     }
 }

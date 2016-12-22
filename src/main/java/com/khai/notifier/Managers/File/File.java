@@ -1,5 +1,7 @@
 package com.khai.notifier.Managers.File;
 
+import com.khai.notifier.Managers.Output.Output;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -17,6 +19,7 @@ public class File {
     public static String read(Reader file) {
         StringBuilder sb = new StringBuilder();
         BufferedReader br;
+
         try {
             br = new BufferedReader(file);
             String line = br.readLine();
@@ -29,7 +32,7 @@ public class File {
 
             br.close();
         } catch (Exception e) {
-            System.out.println(e);
+            Output.error(e.getMessage());
         }
 
         return sb.toString();
@@ -39,10 +42,17 @@ public class File {
     /**
      * @param path Path of file to open
      * @return String of text in the file
-     * @throws FileNotFoundException
      */
-    public static String read(String path) throws FileNotFoundException {
-        Reader file = new FileReader(path);
-        return File.read(file);
+    public static String read(String path) {
+        String result = "";
+
+        try {
+            Reader file = new FileReader(path);
+            result = File.read(file);
+        } catch (Exception e) {
+            Output.error(e.getMessage());
+        }
+
+        return result;
     }
 }

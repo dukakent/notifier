@@ -1,5 +1,6 @@
 package com.khai.notifier;
 
+import com.khai.notifier.Managers.Output.Output;
 import com.khai.notifier.Models.Message.Message;
 import com.khai.notifier.Managers.Parser.Parser;
 import com.khai.notifier.Managers.Parser.ParserCSV;
@@ -22,58 +23,57 @@ public class App {
     public static void main(String[] args) {
         Options options = new Options();
         CommandLineParser cmdParser = new DefaultParser();
-        CommandLine cmd;
 
-        Reader fileUsers;
-        Reader fileTemplate;
-        Parser parser;
-        String[][] records;
-
-        List<User> userList;
-        Template template;
         Sender senderEmail = new EmailSender("notifier123456@gmail.com", "123456abcde!");
         Sender senderSMS = new SMSSender("notifier123456@gmail.com", "123456abcde!");
 
-        options.addOption("u", "users", true, "Path to file with user list");
-        options.addOption("t", "template", true, "Path to template file");
-        options.addOption("e", "send-email", false, "Send email");
-        options.addOption("s", "send-sms", false, "Send SMS");
+        options.addOption("d", "data", true, "Path to file with data");
+        options.addOption("e", "send-email", true, "Path to email template");
+        options.addOption("s", "send-sms", true, "Path to SMS template");
 
         try {
-            cmd = cmdParser.parse(options, args);
-
-            String pathUsers = cmd.getOptionValue("u");
-            String pathTemplate = cmd.getOptionValue("t");
-            fileUsers = new FileReader(pathUsers);
-            fileTemplate = new FileReader(pathTemplate);
-
-            parser = new ParserCSV(fileUsers);
-            records = parser.parse();
-
-            userList = UserFactory.createList(records);
-            template = new Template(fileTemplate);
+            CommandLine cmd = cmdParser.parse(options, args);
+            List<User> userList;
 
             /*
-             * Usage
+                Options handling
              */
-            User user;
-            Message mess;
+            if (cmd.hasOption("d")) {
+                String pathUsers = cmd.getOptionValue("d");
 
-            for (User anUserList : userList) {
-                user = anUserList;
-                mess = new Message("Password restore", template.compile(user));
+                Reader fileUsers = new FileReader(pathUsers);
+                Parser parser = new ParserCSV(fileUsers);
 
-                if (cmd.hasOption("e")) {
+                String[][] records = parser.parse();
+                userList = UserFactory.createList(records);
+            } else {
+                Output.error("--data option is required");
+                throw new RuntimeException();
+            }
+
+            if (cmd.hasOption("e")) {
+                for (User user : userList) {
+                    String pathTemplateEmail = cmd.getOptionValue("e");
+                    Reader fileTemplateEmail = new FileReader(pathTemplateEmail);
+                    Template templateEmail = new Template(fileTemplateEmail);
+                    Message mess = new Message("Password restore", templateEmail.compile(user));
                     senderEmail.send(mess, user);
                 }
+            }
 
-                if (cmd.hasOption("s")) {
+            if (cmd.hasOption("s")) {
+                for (User user : userList) {
+                    String pathTemplateSMS = cmd.getOptionValue("s");
+                    Reader fileTemplateSMS = new FileReader(pathTemplateSMS);
+                    Template templateSMS = new Template(fileTemplateSMS);
+                    Message mess = new Message("", templateSMS.compile(user));
                     senderSMS.send(mess, user);
                 }
             }
 
+
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            Output.error(e.getMessage());
         }
 
     }

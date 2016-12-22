@@ -1,5 +1,6 @@
 package com.khai.notifier.Managers.Parser;
 
+import com.khai.notifier.Managers.Output.Output;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
@@ -22,11 +23,10 @@ public class ParserCSV extends Parser {
      */
     private ParserCSV(Reader file, String[] headers) {
         this.file = file;
-        String[] headers1 = headers;
         this.format = CSVFormat.DEFAULT;
 
-        if (headers1 != null) {
-            this.format.withHeader(headers1);
+        if (headers != null) {
+            this.format.withHeader(headers);
         }
     }
 
@@ -45,7 +45,7 @@ public class ParserCSV extends Parser {
             CSVParser parser = new CSVParser(this.file, this.format);
             this.records = parser.getRecords();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            Output.error(e.getMessage());
         }
     }
 
