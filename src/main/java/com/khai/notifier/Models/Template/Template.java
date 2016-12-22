@@ -1,6 +1,7 @@
 package com.khai.notifier.Models.Template;
 
 import com.khai.notifier.Managers.File.File;
+import com.khai.notifier.Managers.Output.Output;
 
 import java.io.Reader;
 import java.lang.reflect.Method;
@@ -65,7 +66,7 @@ public class Template {
                 res = res.replace("${" + prop + "}", value);
 
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                Output.error(e.getMessage());
             }
         }
 
