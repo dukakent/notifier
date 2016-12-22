@@ -24,6 +24,34 @@ public class User {
     }
 
     /**
+     * @return users's first name
+     */
+    public String getFirstName() {
+        return firstName;
+    }
+
+    /**
+     * @return users's last name
+     */
+    public String getLastName() {
+        return lastName;
+    }
+
+    /**
+     * @return users's login
+     */
+    public String getLogin() {
+        return login;
+    }
+
+    /**
+     * @return user's password
+     */
+    public String getPassword() {
+        return password;
+    }
+
+    /**
      * @return user's phone number
      */
     public String getPhone() {

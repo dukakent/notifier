@@ -55,10 +55,10 @@ public class SMSSender extends Sender {
 
     // Functions
     @Override
-    public void send(Message message, User user) {
+    public void send(Message message, String phone) {
 
         try {
-            sendPost(message.getText(), user.getPhone());
+            sendPost(message.getText(), phone);
         } catch (Exception e) {
             Output.error("Error sending sms to user with phone: " + user.getPhone() + ".\nDescription: " + e.getLocalizedMessage() + ".\n");
         }

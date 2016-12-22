@@ -1,0 +1,7 @@
+{
+  "email": {
+    "host": "smtp.gmail.com",
+    "name": "notifier123456@gmail.com",
+    "password": "123456abcde!"
+  }
+}
