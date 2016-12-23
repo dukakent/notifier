@@ -3,13 +3,12 @@ The tool for sending messages
 
 ### Usage
 You need to use flags for giving file paths and choose the way to send message
-* `-u` or `--users` - specifies path to CSV file with users
-* `-t` or `--template` - specifies to file with template
+* `-d` or `--data` - specifies path to CSV file with users
 * `-e` or `--email` - Send via email
 * `-s` or `--sms` - Send via SMS
 
 Example for sending both email and SMS:<br>
-`notifier --users ./users.csv --template ./template.txt --email --sms`
+`notifier --data ./users.csv --email ./template_email.txt --sms ./template_sms.txt`
 
 ### For development
 * First of all `mvn clean install`
