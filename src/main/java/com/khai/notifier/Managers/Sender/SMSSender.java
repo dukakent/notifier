@@ -2,7 +2,6 @@ package com.khai.notifier.Managers.Sender;
 
 import com.khai.notifier.Managers.Output.Output;
 import com.khai.notifier.Models.Message.Message;
-import com.khai.notifier.Models.User.User;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -11,8 +10,16 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ByteArrayEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
+import org.xml.sax.InputSource;
 
-import java.io.IOException;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
+import org.w3c.dom.Node;
+import org.w3c.dom.Element;
+
+import java.io.StringReader;
 
 /**
  * SMSSender uses HTTP POST method to use sms-fly.com API
@@ -30,15 +37,27 @@ public class SMSSender extends Sender {
     private static String REQUEST_HEADER_CONTENT_TYPE_VALUE  = "text/xml";
     private static String REQUEST_HEADER_CONTENT_LENGTH_KEY  = "Content-Length:";
     private static String REQUEST_BODY_HEADER                = "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
+
+    // SEND SMS
     private static String REQUEST_BODY_RECIPIENT_PLACEHOLDER = "USERPHONE";
     private static String REQUEST_BODY_BODY_PLACEHOLDER      = "REQESTBODY";
     private static String REQUEST_BODY_OPERATION_SEND        = "<operation>SENDSMS</operation>";
     private static String REQUEST_BODY_OPERATION_SEND_BODY   =
             "<request>" +
+                REQUEST_BODY_OPERATION_SEND +
                 "<message start_time=\"AUTO\" end_time=\"AUTO\" lifetime=\"4\" desc=\"description\">" +
                     "<recipient>"  + REQUEST_BODY_RECIPIENT_PLACEHOLDER + "</recipient>" +
                     "<body>"       + REQUEST_BODY_BODY_PLACEHOLDER      + "</body>" +
                 "</message>" +
+            "</request>";
+
+    // GET SMS STATUS
+    private static String REQUEST_BODY_OPERATION_GET_SMS_STATUS               = "<operation>GETCAMPAIGNINFO</operation>";
+    private static String REQUEST_BODY_GET_SMS_STATUS_CAMPAIGNID_PLACEHOLDER  = "CAMPAIGNID";
+    private static String REQUEST_BODY_GET_SMS_STATUS =
+            "<request>" +
+                REQUEST_BODY_OPERATION_GET_SMS_STATUS +
+                "<message campaignID=\"" + REQUEST_BODY_GET_SMS_STATUS_CAMPAIGNID_PLACEHOLDER + "\"/>" +
             "</request>";
 
 
@@ -60,7 +79,7 @@ public class SMSSender extends Sender {
         try {
             sendPost(message.getText(), phone);
         } catch (Exception e) {
-            Output.error("Error sending sms to user with phone: " + user.getPhone() + ".\nDescription: " + e.getLocalizedMessage() + ".\n");
+            Output.error("Error sending sms to user with phone: " + phone + ".\nDescription: " + e.getLocalizedMessage() + ".\n");
         }
     }
 
@@ -82,7 +101,7 @@ public class SMSSender extends Sender {
         responseBody        = responseBody.replace(REQUEST_BODY_RECIPIENT_PLACEHOLDER, phone);
         responseBody        = responseBody.replace(REQUEST_BODY_BODY_PLACEHOLDER,      body);
 
-        String xml = REQUEST_BODY_HEADER + REQUEST_BODY_OPERATION_SEND + responseBody;
+        String xml = REQUEST_BODY_HEADER + responseBody;
 
         HttpEntity entity = new ByteArrayEntity(xml.getBytes("UTF-8"));
         HttpClient client = HttpClientBuilder.create().build();
@@ -115,5 +134,18 @@ public class SMSSender extends Sender {
                 Output.error("SMS request error.\nResponse Body:" + content);
                 break;
         }
+    }
+
+    private String getSMSCampaignIDFromResponse(String response) {
+
+
+    }
+
+    private void getSMSStatus(String campaignID) {
+
+        String requestBody = REQUEST_BODY_OPERATION_SEND_BODY;
+        requestBody        = requestBody.replace(REQUEST_BODY_RECIPIENT_PLACEHOLDER, campaignID);
+
+        String xml = REQUEST_BODY_HEADER + requestBody;
     }
 }

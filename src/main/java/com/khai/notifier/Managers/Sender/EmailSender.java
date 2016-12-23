@@ -20,6 +20,9 @@ public class EmailSender {
     private Session session;
     private Message mimeMessage;
 
+    /**
+     * @param props properties with connection data
+     */
     public EmailSender(Properties props) {
         this.props = props;
     }
@@ -29,11 +32,19 @@ public class EmailSender {
         return text.getBytes().length <= maxLength;
     }
 
+    /**
+     * creates SMTP session
+     */
     public void openSMTP() {
         session = Session.getDefaultInstance(props);
         mimeMessage = new MimeMessage(session);
     }
 
+    /**
+     * Creates SMTP session with auth
+     * @param username credentials username
+     * @param password credentials password
+     */
     public void openSMTP(final String username, final String password) {
         session = Session.getDefaultInstance(props, new Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
@@ -49,6 +60,10 @@ public class EmailSender {
 
     }
 
+    /**
+     * Sets email message transmitted from
+     * @param email sender email
+     */
     public void from(String email) {
         try {
             mimeMessage.setFrom(new InternetAddress(email));
@@ -57,6 +72,10 @@ public class EmailSender {
         }
     }
 
+    /**
+     * sets single recipient
+     * @param email recipient email
+     */
     public void to(String email) {
         try {
             mimeMessage.setRecipient(Message.RecipientType.TO, new InternetAddress(email));
@@ -65,6 +84,10 @@ public class EmailSender {
         }
     }
 
+    /**
+     * Adds another recipient
+     * @param email recipient email
+     */
     public void addRecipient(String email) {
         try {
             mimeMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
@@ -73,6 +96,10 @@ public class EmailSender {
         }
     }
 
+    /**
+     * Adds CC people
+     * @param email recepient email
+     */
     public void addCC(String email) {
         try {
             mimeMessage.addRecipient(Message.RecipientType.CC, new InternetAddress(email));
@@ -81,6 +108,10 @@ public class EmailSender {
         }
     }
 
+    /**
+     * Send email message
+     * @param message Message body
+     */
     public void send(com.khai.notifier.Models.Message.Message message) {
 
         boolean isSizeValid = validateMaxSize(message.getText());
@@ -103,7 +134,7 @@ public class EmailSender {
 
 
         } catch (MessagingException e) {
-            Output.error("Sending email has failed");
+            Output.error("Sending email has failed: ");
             throw new RuntimeException(e);
         }
 

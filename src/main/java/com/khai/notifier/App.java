@@ -27,7 +27,7 @@ public class App {
 
     private static String EMAIL_NAME = "i.duka@student.csn.khai.edu";
     private static String EMAIL_PASSWORD = "42935304";
-    private static String EMAIL_HOST = "smtp.gmail.com";
+    private static String EMAIL_HOST = "smtp-relay.gmail.com";
     private static String EMAIL_PORT = "465";
     private static String EMAIL_MAXSIZE = "25000000";
 
